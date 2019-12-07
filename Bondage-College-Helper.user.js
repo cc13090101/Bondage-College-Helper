@@ -13,7 +13,7 @@
 /*
  // 如果您是直接通过拖动Bondage_College_Helper.user.js安装的插件，请忽略。
  // 如果您使用的油猴脚本编辑模式，请将下面一行仿照上方格式，复制到上面的 // ==UserScript== 标签内，以便启动辅助。
- // @match        http?://www.bondageprojects.com/*
+ // @match        http*://www.bondageprojects.com/*
  */
 
 (function() {
