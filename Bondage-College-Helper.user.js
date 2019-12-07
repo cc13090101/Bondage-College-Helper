@@ -1,13 +1,20 @@
 // ==UserScript==
+// @icon         https://www.bondageprojects.com/images/player_icon.png
 // @name         Bondage_College_Helper
-// @namespace    https://github.com/cc13090101/Bondage-College-Helper/blob/master/
-// @version      0.1.20191225
+// @namespace    https://github.com/cc13090101/Bondage-College-Helper
+// @version      0.0.20191207
 // @description  Bondage College 作弊辅助（试用）。
-// @updateURL    https://github.com/cc13090101/Bondage-College-Helper/blob/master/Bondage_College_Helper.user.js
 // @author       木木祭曦
-// @match        http?://www.bondageprojects.com/*
 // @grant        none
+// @homepageURL  https://github.com/cc13090101/Bondage-College-Helper
+// @downloadURL  https://github.com/cc13090101/Bondage-College-Helper/raw/master/Bondage-College-Helper.user.js
 // ==/UserScript==
+
+/*
+ // 如果您是直接通过拖动Bondage_College_Helper.user.js安装的插件，请忽略。
+ // 如果您使用的油猴脚本编辑模式，请将下面一行仿照上方格式，复制到上面的 // ==UserScript== 标签内，以便启动辅助。
+ // @match        http?://www.bondageprojects.com/*
+ */
 
 (function() {
     'use strict';
@@ -54,6 +61,7 @@
         Common_btn_Bodage_div.style = "border:2px solid #808080; width:50px; height:50px; z-index: 9999; position: fixed ! important; right: 0px; bottom: 50px; background-color:white";
         Common_btn_Bodage_div.id = "Common_btn_Bodage_div";
         Common_btn_Bodage_div.appendChild(Common_btn_Bodage_div_p);
+        Common_btn_Bodage_div.style.display = "none";
         document.getElementsByTagName("body")[0].appendChild(Common_btn_Bodage_div);
     }
 
@@ -77,9 +85,12 @@
         LocationUrl = document.location.href.toString();
         CollegeUrl = "college";
         ClubUrl = "BondageClub";
+        var reg = /^http?\:\/\/www\.bondageprojects\.com\/*$/;
         if(LocationUrl.indexOf(ClubUrl) != -1){
+            Common_btn_Bodage_div.style.display = "inline";
             ClubStart();
         }else if(LocationUrl.indexOf(CollegeUrl) != -1){
+            Common_btn_Bodage_div.style.display = "inline";
             CollegeStart();
         }else{
             console.error('没有匹配到当前游戏页面！');
@@ -170,7 +181,7 @@
 
     //检查是否可以修改数据
     function ClubLoadCheck(){
-        if(Player.Name != null && Player.Name != ""){
+        if(typeof Player != "undefined" && Player.Name != null && Player.Name != ""){
             console.log("登录成功，已获取玩家数据。");
         }else{
             console.log("没有获取到玩家数据，请刷新重新登录。");

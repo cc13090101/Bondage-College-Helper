@@ -1,2 +1,5 @@
 # Bondage-College-Helper
-游戏本体：https : //github.com/Ben987/Bondage-College。 自制脚本，可以适当的修改玩家属性，自用。
+游戏本体：https://github.com/Ben987/Bondage-College。 自制脚本，可以适当的修改玩家属性，自用。
+安装时，请找到浏览器的扩展程序功能，并调至开发者模式。（具体操作过程请自行百度）
+Chrome 只允许使用 Chrome 网上应用店中发布的扩展程序。作者使用的是360极速浏览器。
+您也可以安装油猴插件（强烈建议），将代码复制到编辑器内启动运行。（具体操作过程请自行百度）
