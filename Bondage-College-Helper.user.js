@@ -2,7 +2,7 @@
 // @icon         https://www.bondageprojects.com/images/player_icon.png
 // @name         Bondage_College_Helper
 // @namespace    https://github.com/cc13090101/Bondage-College-Helper
-// @version      0.0.20191209
+// @version      0.0.20191211
 // @description  Bondage College 作弊辅助（试用）。
 // @author       木木祭曦
 // @grant        none
@@ -43,7 +43,7 @@
     function Common_view_Bodage_div_Add(){
         Common_view_Bodage_div = document.createElement("div");
         Common_view_Bodage_div.id = "Common_view_Bodage_div";
-        Common_view_Bodage_div.style = "border:2px solid #808080; width:525px; height:700px; z-index: 9999; position: fixed ! important; right: 52px; bottom: 50px; background-color:white";
+        Common_view_Bodage_div.style = "border:2px solid #808080; width:550px; height:700px; z-index: 9999; position: fixed ! important; right: 52px; bottom: 50px; background-color:white";
         Common_view_Bodage_div.style.display = "none";
         document.getElementsByTagName("body")[0].appendChild(Common_view_Bodage_div);
     }
@@ -119,36 +119,43 @@
     var ClubCurrentScreen;
     var Club_text_ChangeReputation_input;
     var Club_text_ChangeReputation_input_value = "";
-    var Club_btn_ChangeReputation_input = [];
     var Club_btn_ChangeReputationRepair_input;
     //
     function ClubStart(){
         //加载起始按钮功能
         Common_btn_Bodage_div.onclick = Common_btn_Bodage_div_onclick;
         console.log("这是Club页面。");
-        ///-----------------------------ServerPlayerSync()开始-----------------------------///
-        //Money输入框
-        Club_text_ChangeMoney_input_Add();
-        //修改Money按钮
-        Club_btn_ChangeMoney_input_Add();
-        //不可见的input(text)标签1
-        Club_text_InVisible_input_Add(1,225,25,10);
-        ///-----------------------------ServerPlayerSync()结束----------------------------///
-        ///------------------------ServerPlayerInventorySync()开始------------------------///
+        ClubTextsGet();//加载ClubText
+        setTimeout(function(){
+            ///-----------------------------ServerPlayerSync()开始-----------------------------///
+            //Money输入框
+            Club_text_ChangeMoney_input_Add();
+            //修改Money按钮
+            Club_btn_ChangeMoney_input_Add();
+            //不可见的input(text)标签1
+            Club_text_InVisible_input_Add(1,150,25,10);
+            ///-----------------------------ServerPlayerSync()结束----------------------------///
+            //直线(div)标签1，分割不同区域
+            Club_line_div_Add(1,550,2,0,10,"red");
+            ///------------------------ServerPlayerInventorySync()开始------------------------///
 
-        ///------------------------ServerPlayerInventorySync()结束------------------------///
-        ///---------------------------ServerPlayerLogSync()开始---------------------------///
+            ///------------------------ServerPlayerInventorySync()结束------------------------///
+            ///---------------------------ServerPlayerLogSync()开始---------------------------///
 
-        ///---------------------------ServerPlayerLogSync()结束---------------------------///
-        ///-----------------------ServerPlayerReputationSync()开始-----------------------///
-        //Reputation输入框
-        Club_text_Reputation_input_Add();
-        //修改Reputation按钮
-        Club_btn_ChangeReputation_input_Add();
-        //恢复异常Reputation按钮
-        Club_btn_ChangeReputationRepair_input_Add();
-        ///-----------------------ServerPlayerReputationSync()结束----------------------///
-
+            ///---------------------------ServerPlayerLogSync()结束---------------------------///
+            ///-----------------------ServerPlayerReputationSync()开始-----------------------///
+            //Reputation输入框
+            Club_text_Reputation_input_Add();
+            //恢复异常Reputation按钮
+            Club_btn_ChangeReputationRepair_input_Add();
+            //不可见的input(text)标签2
+            Club_text_InVisible_input_Add(2,150,25,10);
+            //修改Reputation按钮
+            Club_btn_ChangeReputation_input_Add();
+            ///-----------------------ServerPlayerReputationSync()结束----------------------///
+            //直线(div)标签2，分割不同区域
+            Club_line_div_Add(2,550,2,0,10,"red");
+        },1000);
     }
 
     //添加修改Money输入框
@@ -156,7 +163,7 @@
         Club_text_ChangeMoney_input = document.createElement("input");
         Club_text_ChangeMoney_input.id = "Common_text_Bondage_input";
         Club_text_ChangeMoney_input.type = "text";
-        Club_text_ChangeMoney_input.style = "width:100px;margin-left:25px;margin-top:10px";
+        Club_text_ChangeMoney_input.style = "width:146px;margin-left:25px;margin-top:10px";
         Club_text_ChangeMoney_input.placeholder = "请输入Money数值";
         Common_view_Bodage_div.appendChild(Club_text_ChangeMoney_input);
     }
@@ -166,7 +173,7 @@
         Club_btn_ChangeMoney_input = document.createElement("input");
         Club_btn_ChangeMoney_input.id = "Club_btn_ChangeMoney_input";
         Club_btn_ChangeMoney_input.type = "button";
-        Club_btn_ChangeMoney_input.style = "width:100px;margin-left:25px;margin-top:10px";
+        Club_btn_ChangeMoney_input.style = "width:150px;margin-left:25px;margin-top:10px";
         Club_btn_ChangeMoney_input.value = "修改Money";
         Club_btn_ChangeMoney_input.onclick = Club_btn_ChangeMoney_input_onclick;
         Common_view_Bodage_div.appendChild(Club_btn_ChangeMoney_input);
@@ -191,20 +198,52 @@
         Club_text_ChangeReputation_input = document.createElement("input");
         Club_text_ChangeReputation_input.id = "Club_text_ChangeReputation_input";
         Club_text_ChangeReputation_input.type = "text";
-        Club_text_ChangeReputation_input.style = "width:100px;margin-left:25px;margin-top:10px";
+        Club_text_ChangeReputation_input.style = "width:146px;margin-left:25px;margin-top:10px";
         Club_text_ChangeReputation_input.placeholder = "请输入Reputation数值";
         Common_view_Bodage_div.appendChild(Club_text_ChangeReputation_input);
     }
 
     //添加修改Reputation按钮（循环）
     function Club_btn_ChangeReputation_input_Add(){
-
-
+        for(var R = 0; R < ClubText.length; R++){
+            if(ClubText[R].Tag.indexOf("Reputation") == 0){
+                var ReputationName = ClubText[R].Tag.replace("Reputation","").replace("Positive","").replace("Negative","");
+                if(document.getElementById("Club_btn_ChangeReputation_input_" + ReputationName) == null && ReputationName != "" && ReputationName != "None"){
+                    Club_btn_ChangeReputationSingle_input_Add(ReputationName);
+                }
+            }
+        }
     }
 
     //添加修改Reputation按钮（单个）
     function Club_btn_ChangeReputationSingle_input_Add(ReputationName){
+        var Club_btn_ChangeReputation_input = document.createElement("input");
+        Club_btn_ChangeReputation_input.id = "Club_btn_ChangeReputation_input_" + ReputationName;
+        Club_btn_ChangeReputation_input.type = "button";
+        Club_btn_ChangeReputation_input.style = "width:150px;margin-left:25px;margin-top:10px";
+        Club_btn_ChangeReputation_input.value = "修改" + ReputationName;
+        Club_btn_ChangeReputation_input.onclick = Club_btn_ChangeReputationSingle_input_Add_onclick;
+        Common_view_Bodage_div.appendChild(Club_btn_ChangeReputation_input);
+    }
 
+    //修改Reputation按钮（单个）点击事件
+    function Club_btn_ChangeReputationSingle_input_Add_onclick(){
+        ClubLoadCheck();
+        var reg = /^-?\d*$/;
+        var ReputationName = this.value.replace("修改","");
+        Club_text_ChangeReputation_input_value = Club_text_ChangeReputation_input.value;
+        if(reg.test(Club_text_ChangeReputation_input_value) && Club_text_ChangeReputation_input_value != ""){
+            var ClubtextChangeReputationinputvalue = Number(Club_text_ChangeReputation_input_value);
+            if(ClubtextChangeReputationinputvalue >= -100 && ClubtextChangeReputationinputvalue <= 100){
+                DialogSetReputation(ReputationName, ClubtextChangeReputationinputvalue);
+                ServerPlayerReputationSync();
+            }else{
+                alert("Reputation数目必须在-100到100之间！");
+            }
+        } else{
+            alert("Reputation数目必须为整数！");
+        }
+        Club_text_ChangeReputation_input_value = "";
     }
 
     //添加恢复异常Reputation按钮
@@ -212,7 +251,7 @@
         Club_btn_ChangeReputationRepair_input = document.createElement("input");
         Club_btn_ChangeReputationRepair_input.id = "Club_btn_ChangeReputationRepair_input";
         Club_btn_ChangeReputationRepair_input.type = "button";
-        Club_btn_ChangeReputationRepair_input.style = "width:100px;margin-left:25px;margin-top:10px";
+        Club_btn_ChangeReputationRepair_input.style = "width:150px;margin-left:25px;margin-top:10px";
         Club_btn_ChangeReputationRepair_input.value = "修复异常Reputation";
         Club_btn_ChangeReputationRepair_input.onclick = Club_btn_ChangeReputationRepair_input_onclick;
         Common_view_Bodage_div.appendChild(Club_btn_ChangeReputationRepair_input);
@@ -221,19 +260,15 @@
     //恢复异常Reputation按钮点击事件
     function Club_btn_ChangeReputationRepair_input_onclick(){
         ClubLoadCheck();
-        ClubTextsGet();
-        setTimeout(function(){
-            for(var R = 0; R < Player.Reputation.length; R++){
-                if (Player.Reputation[R].Value != 0) {
-                    var Tag = ClubTextGet("Reputation" + Player.Reputation[R].Type + ((Player.Reputation[R].Value > 0) ? "Positive" : "Negative"));
-                    if(Tag.indexOf("ClubMissingTag:") == 0){
-                        Player.Reputation[R].Value = 0;
-                        ServerPlayerReputationSync();
-                    }
+        for(var R = 0; R < Player.Reputation.length; R++){
+            if (Player.Reputation[R].Value != 0) {
+                var Tag = ClubTextGet("Reputation" + Player.Reputation[R].Type + ((Player.Reputation[R].Value > 0) ? "Positive" : "Negative"));
+                if(Tag.indexOf("ClubMissingTag:") == 0){
+                    Player.Reputation[R].Value = 0;
+                    ServerPlayerReputationSync();
                 }
             }
-        }, 300);
-
+        }
     }
 
     //获取有效的CSV文本内容集合
@@ -304,6 +339,15 @@
         Club_text_InVisible_input.style = Club_text_InVisible_input_style_model;
         Club_text_InVisible_input.placeholder = "不可见的input(text)标签" + soft;
         Common_view_Bodage_div.appendChild(Club_text_InVisible_input);
+    }
+
+    //添加直线(div)标签，分割不同区域
+    function Club_line_div_Add(soft,width,height,left,top,color){
+        var Club_line_div = document.createElement("div");
+        Club_line_div.id = "Club_line_div_" + soft;
+        var Club_line_div_style_model="width:" + width + "px;height:" + height + "px;margin-left:" + left + "px;margin-top:" + top + "px;background-color:"+color;
+        Club_line_div.style = Club_line_div_style_model;
+        Common_view_Bodage_div.appendChild(Club_line_div);
     }
 
     //检查是否可以修改数据
